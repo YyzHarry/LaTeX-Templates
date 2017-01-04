@@ -1,4 +1,4 @@
-Latex
+Latex Templates
 ===================
 
-Assignment of Signal and System, 4 different methods to process image that is combined with Gaussian Noise and Obfuscation.
+A Latex Template for IEEE with two sides, maybe I'll update it...
