@@ -1,0 +1,188 @@
+\documentclass[twocolumn,twoside]{IEEEtran}                 %% twocolumn (regular paper)
+%\documentclass[twocolumn,twoside,dvipdfm,technote]{IEEEtran}        %% twocolumn (correspondence)
+%\documentclass[onecolumn,twoside,draft,dvipdfm,technote]{IEEEtran}  %% onecolumn,draft (correspondence)
+%\documentclass[onecolumn,twoside,draft,dvipdfm]{ieeetran}            %% onecolumn,draft (regular paper)
+%\documentclass[12pt,journal,draftclsnofoot,onecolumn,letterpaper]{IEEEtran} %TWC
+%\textwidth= 6.5in      % 6.5in = letterpaper
+%\textheight = 8.5in   % 8.5in = 29 line
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsmath,bm}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{cite}
+\usepackage{enumerate}
+%\usepackage[ruled]{algorithm2e}
+\usepackage{color, soul}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\begin{document}
+
+
+% ==================================================
+\title{UAV Sensing Implemented Indoor 3D Wi-Fi Spectrum Rebuilding}
+
+\author{Yuzhe~Yang, %~\IEEEmembership{Member,~IEEE,}
+        Chao~Yao, %~\IEEEmembership{Fellow,~OSA,}
+        and~Lingyang~Song,~\IEEEmembership{Life~Fellow,~IEEE}% <-this % stops a space
+\thanks{M. Shell is with the Department
+of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
+GA, 30332 USA e-mail: (see http://www.michaelshell.org/contact.html).}% <-this % stops a space
+\thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
+\thanks{Manuscript received April 19, 2005; revised January 11, 2007.}}
+
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~6, No.~1, January~2007}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+
+\maketitle
+
+
+% ==================================================
+\begin{abstract}
+%\boldmath
+Nowadays UAV is the most convenient things to implement spectrum seing in indoor or out door circumstance.\
+This statement aims to test the "enter" is allright.\
+So that's why we talk about this.
+\end{abstract}
+
+\begin{IEEEkeywords}
+IEEEtran, journal, \LaTeX, paper, template.
+\end{IEEEkeywords}
+
+
+% ==================================================
+\section{Introduction}
+
+\IEEEPARstart{T}{his} demo file is intended to serve as a ``starter file''
+for IEEE journal papers produced under \LaTeX\ using
+IEEEtran.cls version 1.7 and later.
+
+I wish you the best of success.
+
+These paper is created by $Yang$ $Yuzhe$ for demo.
+
+Hope it can help you in some ways.
+
+Also, bless for my own paper. Fight on.
+
+\hfill Yuzhe Yang
+
+\hfill December 27, 2016
+
+
+\subsection{Subsection Heading Here}
+Subsection text here.
+
+
+\subsubsection{Subsubsection Heading Here}
+Subsubsection text here.
+
+
+
+% ==================================================
+\section{Conclusion}
+The conclusion goes here.
+
+\begin{algorithm}[h]
+\caption{UAV Sensing for the $t_{i}$-th survey}
+\begin{algorithmic}[1]
+\STATE (1) //During the first measurement period ($method$ $one$)
+\FOR{$j=1$ to $m$}
+\STATE Measure spectrum merits and record;
+\STATE Move and randomize current locations within $Cube_{i}$;
+\ENDFOR
+
+\STATE
+\STATE (2) //During a navigation period
+\STATE $Cube_{next}\gets $ determine next Cube under present $Cube_{i}$;
+\IF {$Cube_{next}$ == NULL }
+\STATE move to a start-point;
+\STATE enter the update period(3);
+\ELSE
+\STATE move to $Cube_{next}$;
+\STATE enter the measurement period(1);
+\ENDIF
+
+\STATE
+\STATE (3) //During the update period
+\STATE update a spectrum-condition map under $Cube_{i}$;
+\STATE $c_{i}\gets $ count cubes whose condition deviates by $\sigma$;
+\IF {$c_{i} > 0$ and $Curmode$ == $method$ $two$}
+\STATE add $Cube_{i}$ to $SuspectCubes(E_{n})$;
+\FOR{$j=1$ to $neighbor$ $cubes$}
+\STATE enter the measurement period(1);
+\ENDFOR
+\STATE update the recent spectrum map;
+\ENDIF
+
+\STATE
+\STATE (4) //During the selective period ($method$ $three$)
+\FORALL {$c_{i}$ such that $c_{i} \in SuspectCubes(E_{n})$}
+\STATE Generate Min Coverage $D$ of $SuspectCubes(E_{n})$;
+\ENDFOR
+\FORALL {$c_{i} \in D$}
+\IF {$c_{i} \gets $ count deviates by $\sigma$}
+\STATE enter the update period(3);
+\ENDIF
+\ENDFOR
+
+\end{algorithmic}
+\end{algorithm}
+
+
+% ==================================================
+\appendices
+\section{Proof of the First Zonklar Equation}
+Appendix one text goes here.
+
+
+\section{}
+Appendix two text goes here.
+
+
+\section*{Acknowledgment}
+
+The authors would like to thank...
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% ==================================================
+\begin{thebibliography}{1}
+
+\bibitem{IEEEhowto:kopka}
+Chen H. C., H. T. Kung, D. Vlah, D. Hague, M. Muccio, and B. Poland. “Collaborative Compressive Spectrum Sensing in a UAV Environment.” In 2011 - MILCOM 2011 Military Communications Conference, 142–48, 2011.
+
+\bibitem{IEEEhowto:kopka}
+Hingu V., and S. Shah. “Block-Wise Eigenvalue Based Spectrum Sensing Algorithm in Cognitive Radio Network.” In 2015 9th Asia Modelling Symposium (AMS), 85–88, 2015.
+
+\bibitem{IEEEhowto:kopka}
+Xue Haozhou, and Feifei Gao. “A Machine Learning Based Spectrum-Sensing Algorithm Using Sample Covariance Matrix.” In 2015 10th International Conference on Communications and Networking in China (ChinaCom), 476–80, 2015.
+
+\bibitem{IEEEhowto:kopka}
+Ye Fang, and Xun Zhang. “Non-Uniform Quantized Exponential Entropy-Based Spectrum Sensing Algorithm in Cognitive Radio.” In 2016 Progress in Electromagnetic Research Symposium (PIERS), 2511–16, 2016.
+
+\end{thebibliography}
+
+
+\begin{IEEEbiography}{Michael Shell}
+Biography text here.
+\end{IEEEbiography}
+
+% if you will not have a photo at all:
+\begin{IEEEbiographynophoto}{John Doe}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+
+\begin{IEEEbiographynophoto}{Jane Doe}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+\end{document}

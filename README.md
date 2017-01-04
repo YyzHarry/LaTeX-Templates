@@ -1,4 +1,4 @@
-Latex Templates
+LaTex Templates
 ===================
 
-A Latex Template for IEEE with two sides, maybe I'll update it...
+A LaTex Template for IEEE with two sides, maybe I'll update it...
