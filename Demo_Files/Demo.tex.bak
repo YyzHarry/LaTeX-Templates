@@ -87,10 +87,11 @@ Subsubsection text here.
 The conclusion goes here.
 
 \begin{algorithm}[h]
-% \caption{UAV Sensing for the $t_{i}$-th survey}
-% \begin{algorithmic}
+\caption{UAV Sensing for the $t_{i}$-th survey}
+\begin{algorithmic}[1]
 
-% \end{algorithmic}
+
+\end{algorithmic}
 \end{algorithm}
 
 
