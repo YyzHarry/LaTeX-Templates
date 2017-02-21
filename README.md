@@ -1,6 +1,7 @@
-LaTex Templates
-===================
+# LaTex Templates
 
-A LaTex Template for IEEE with two sides, maybe I'll update it...
+## Introduction
+This is a LaTex Template for IEEE with _two sides_. 
 
-Hope it can offer some help.
+## Usage
+Compile the __.tex__ file to establish a PDF file. 
