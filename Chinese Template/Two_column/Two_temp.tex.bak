@@ -1,0 +1,383 @@
+\documentclass[a4paper,11pt,onecolumn,twoside]{article}
+
+\usepackage{xeCJK}       % 使用XeLaTeX编译
+\usepackage{CJK}         % CJK中文支持
+\usepackage{fancyhdr}
+\usepackage{amsmath,amsfonts,amssymb,graphicx}    % EPS图片支持
+\usepackage{graphics}
+\usepackage{subfigure}   % 使用子图形
+\usepackage{indentfirst} % 中文段落首行缩进
+\usepackage{bm}          % 公式中的粗体字符（用命令\boldsymbol）
+\usepackage{multicol}    % 正文双栏
+\usepackage{indentfirst} % 中文首段缩进
+%\usepackage{picins}     % 图片嵌入段落宏包 比如照片
+\usepackage{abstract}    % 2栏文档，一栏摘要及关键字宏包
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  lengths
+%  下面的命令重定义页面边距，使其符合中文刊物习惯。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\addtolength{\topmargin}{-54pt}
+\setlength{\oddsidemargin}{-0.9cm}  % 3.17cm - 1 inch
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{17.00cm}
+\setlength{\textheight}{24.00cm}    % 24.62
+\setCJKmainfont[BoldFont=SimHei,ItalicFont={[stkaiti.ttf]}]{SimSun}
+
+\newfontfamily\kai{STKaiti}          % 楷体
+\newfontfamily\hei{SimHei}           % 黑体
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  定义标题格式，包括title，author，affiliation，email等。
+%  在任何用到中文的地方，用\begin{CJK} ... \end{CJK}将其括起来。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\baselinestretch}{1.1} %定义行间距
+\parindent 22pt %重新定义缩进长度
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 标题，作者，通信地址定义
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{\huge{综述：电磁波发射、传播与散射}
+\thanks{本文为 \textbf{xxxxxx} 课程第一阶段论文}}
+\author{杨宇喆 \ \small{(1400012996)}\\[2pt]
+\normalsize
+指导老师：夏明耀老师
+\\[2pt]}
+
+\date{}  % 这一行用来去掉默认的日期显示
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 首页页眉页脚定义
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\fancypagestyle{plain}{
+\fancyhf{}
+\lhead{School of EECS\\
+\scriptsize{Peking University}}
+\chead{\centering{综述：电磁波发射、传播与散射\\
+\scriptsize{\textbf{Summery: Emission, Propagation and Scattering of Electromagnetic Wave}}}}
+\rhead{1400012996\\
+\scriptsize{Yuzhe Yang}}
+\lfoot{}
+\cfoot{}
+\rfoot{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 首页后根据奇偶页不同设置页眉页脚
+% R,C,L分别代表左中右，O,E代表奇偶页
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{杨宇喆 1400012996}
+\fancyhead[C]{综述：电磁波发射、传播与散射}
+\fancyhead[L]{\thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 正文两栏环境不允许float环境，比如 figure, table。所以重新定义
+% figure，使之可以浮动到你想要的位置。table也同样，把figure改为
+% table就可以。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{figurehere}
+  {\def\@captype{figure}}
+  {}
+\makeatother
+
+
+
+\begin{document}
+
+\newcommand{\supercite}[1]{\textsuperscript{\cite{#1}}}
+
+%  显示title，并设页码为空（按杂志社要求）
+\maketitle
+
+
+%  中文摘要
+%  调整摘要、关键词，中图分类号的页边距
+%  中英文同时调整
+
+\setlength{\oddsidemargin}{ 1cm}  % 3.17cm - 1 inch
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{13.50cm}
+\vspace{-.8cm}
+
+\begin{center}
+\parbox{\textwidth}{
+\textbf{摘\ \ 要}\quad  电磁波的发射、传播与散射是近现代电磁波理论中的重要部分。本文从电磁波的辐射场入手，逐步阐述电磁波的辐射、传输以及散射问题，阐明电磁波理论的部分基础问题，并列举出相应的应用场景和方法。\\
+\textbf{关键词}\quad  电磁波，辐射场，散射，波导，计算电磁学}
+\end{center}
+
+
+% ======================================================Abstract
+
+\vspace{.1cm}
+\begin{center}
+\parbox{\textwidth}{
+{\large{\textbf{Summery: Emission, Propagation and Scattering of Electromagnetic Wave}}}\\
+\vspace{-0.5cm}
+\begin{center}
+\textbf{Yuzhe Yang}\\[2pt]
+\small{\textit{(Dept. EECS, Peking University, Beijing 100871, China)}}\\[2pt]
+\end{center}
+{\small{\textbf{Abstract}\quad The emission, propagation and scattering of electromagnetic waves are an important part of modern electromagnetic wave theory. Based on the radiation field of electromagnetic wave, this paper expatiates on the radiation, transmission and scattering of electromagnetic waves, expounds some basic problems of electromagnetic wave theory, and lists the corresponding application scenarios and methods. \\
+\textbf{Key Words}\quad Electromagnetic wave; Radiation field; Scattering; Waveguide; Computational Electromagnetism}}
+}
+\end{center}
+
+%  文章编号(左上角)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{minipage}[c]{10cm}
+\vspace{-35.5cm}
+文章编号~~~~1005$-$0388(2004)05$-$0505$-$04
+\end{minipage}
+
+
+%  恢复正文页边距
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\oddsidemargin}{-.5cm}  % 3.17cm - 1 inch
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{17.00cm}
+%\CJKfamily{song}
+
+
+%  分栏开始
+\begin{multicols}{2}
+
+
+
+\section{引言}
+
+电磁波，又称电磁辐射~\supercite{wiki}，是由同相振荡且互相垂直的电场与磁场在空间中以波的形式传递能量和动量，其传播方向垂直于电场与磁场构成的平面。我们知道，电荷产生电磁场，而在迅变情况下，电磁场以波动形式存在。变化着的电场和磁场互相激发，形成了在空间中传播的电磁波~\supercite{Elecbook}。
+电磁波已在广播通信、光学和其他科学技术中有广泛可观的应用，是我们生活中必不可少的一部分，并且关于电磁波的各项分支技术（e.g., 电磁波传播、辐射、激发等）已经发展为独立的学科。
+
+本文主要基于《电磁波理论与应用导论》课程的第一部分内容~\supercite{chap1,chap2,chap3,chap4,chap5}，对电磁波的辐射、传播和散射做出阐述，对其中的物理内涵和物理模型予以解释与介绍，并针对不同的技术提出看法、做出综述。
+
+
+\section{电磁波概述}
+
+\begin{equation}
+\left\{
+\begin{aligned}
+& \nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t}, \\
+& \nabla \cdot \vec{B} = 0, \\
+& \nabla \times \vec{B} = \mu_0 \vec{\mathcal J} + \mu_0\varepsilon_0\frac{\partial \vec{E}}{\partial t}, \\
+& \nabla \cdot \vec{E} = \frac{\rho}{\varepsilon_0}
+\end{aligned}
+\right.
+\label{maxwell}
+\end{equation}
+
+说到电磁波理论，不得不提及的就是麦克斯韦方程~\ref{maxwell}。Maxwell方程组几乎完美的揭示了所有宏观电磁效应，并语言了电磁波的存在。之后几年里，赫兹~(Hertz) 通过实验证明了电磁波的存在性，从此，现代电磁波理论便开始蓬勃发展。
+
+电磁波在我们的世界中无处不在。电视信号是电磁波，手机$Wi-Fi$是电磁波，而每天可见的阳光也是电磁波。电磁波的应用层出不穷，为我们的生产生活带来很大的方便：静电场电磁波可以用来静电除尘、静电复印；
+低频至中高频段电磁波可以探测海底、大地资源和生物电磁信息；
+电视、调频广播、无线电导航使用甚高频段电磁波；
+而微波段则被用来做无线通信、雷达、医疗等。
+
+那么电磁波是如何辐射，如何传播的？后面的章节会一一做出解答。
+
+
+\section{电磁波的辐射}
+
+本节中我们讨论电磁波的辐射过程。
+电磁波常常是由运动电荷辐射出来，而生活中我们所使用的无线电波就是由发射天线上的高频交流电流辐射得来的。想要把信息通过电磁波这一载体进行传播，就必须要研究电磁波的辐射，这对于现代电磁技术是十分重要的。
+
+\subsection{推迟势}
+在介绍电磁波的辐射场前，我们首先介绍推迟势。在经典的牛顿力学中~\supercite{newton}，引力被视作超距作用，``它可以视为一种现象，在这现象里，一个系统的内秉性质会影响遥远系统内秉性质，不论任何其它系统有否影响遥远系统，并且，没有任何过程毗连地传递这影响于空间和时间''。
+然而，读到这里我们会有疑问，抛开引力不谈，我们研究的电磁场的作用是不是超距作用？答案显然是否定的。为了说明这一问题，我们需要引入``推迟势''这一概念，而通过推迟势，我们也能定量的描述电荷电流系统的辐射场。
+
+在非静态的情况下，引入磁矢势$\vec{A}$（$\vec{B} = \nabla \times \vec{A}$），带入麦克斯韦方程组可知
+\begin{equation}
+\vec{E} + \frac{\partial \vec{A}}{\partial t} = - \nabla \varphi
+\end{equation}
+此时$\vec{E}$不再是保守场，我们采用$\vec{A}$和$\varphi$来描述电磁场。引入Lorentz规范~\supercite{Elecbook}，可以推导出在此规范下有：
+\begin{equation}
+\left\{
+\begin{aligned}
+& \nabla^2 \vec{A} - \frac{1}{c^2} \frac{\partial^2 \vec{A}}{\partial t^2} = -\mu_0 \mathcal{J}, \\
+& \nabla^2 \varphi - \frac{1}{c^2} \frac{\partial^2 \varphi}{\partial t^2} = -\frac{\rho}{\varepsilon_0}.
+\end{aligned}
+\right.
+\label{dbert}
+\end{equation}
+
+上述方程~\ref{dbert}被称作d'Alembert方程，是一个非齐次的波动方程。我们通过描述$\vec{A}$、$\varphi$的波动性来描述$\vec{E}$、$\vec{B}$的波动性，以此来描述电磁场。考虑源为变化的电荷/电流，解上述方程可得
+
+\begin{equation}
+\left\{
+\begin{aligned}
+& \varphi(\vec{x},t) = \frac{1}{4\pi \epsilon_0} \int_{V} \frac{\rho(\vec{x},t-\frac{r}{c})}{r} dV^{'}, \\
+& \vec{A}(\vec{x},t) = \frac{\mu_0}{4\pi} \int_{V} \frac{\mathcal{J}(\vec{x},t-\frac{r}{c})}{r} dV^{'}.
+\end{aligned}
+\right.
+\end{equation}
+
+推迟势的解告诉我们，$\vec{x}$点$t$时刻的势取决于$t-\frac{r}{c}$也就是较早时刻的电荷电流分布，说明了电磁作用不是超距作用，其产生的物理作用是不能立刻传到场点的。电磁作用具有一定的传播速度，而这个传播速度就是$c$。
+
+\subsection{辐射场分布}
+有了推迟势，我们将源等效为交变分布的电荷电流，即有$\mathcal{J}(\vec{x},t) = \mathcal{J}(\vec{x})\exp(-i\omega t)$，
+则矢势可以表示为协变形式：
+\begin{equation}
+\begin{split}
+& \vec{A}(\vec{x},t) = \vec{A}(\vec{x})\exp(-i\omega t), \\
+where \quad & \vec{A}(\vec{x}) = \frac{\mu_0}{4\pi} \int_{V} \frac{\mathcal{J}(\vec{x}^{'}) \exp(-ikr)}{r} dV^{'}.
+\end{split}
+\end{equation}
+
+将矢势作泰勒展开，我们依据距离远近可以得到不同的区域场~\supercite{chap3}。当仅研究展开式第一项，我们可以得到电偶极辐射场；相应的，也可以得到更多项的辐射场，其特性在课程中有详细的说明，在此不多赘述。
+
+矢势的求解告诉了我们最一般形式的辐射场是怎样的，这对我们现实生活中所采用的天线发射电磁波具有关键的指导作用。
+
+
+\subsection{天线}
+
+天线是发射与接收电磁波的装置。天线辐射划分为三个场区，分别是近场、辐射近场和辐射远场，而在实际研究中都为远区问题。
+
+辐射的强弱我们用辐射功率表示，其表达式为
+
+\begin{equation*}
+P_{rad} = \int U(\theta,\phi) d\Omega = \int_{0}^{2\pi} \int_{0}^{\pi} U(\theta,\phi) \sin \theta d\theta d\phi.
+\end{equation*}
+
+当天线长度$l$ 远小于波长时，可以等效为电偶极辐射场。但是这样的短天线对应的辐射能力不强，于是通过研究远区辐射场，可以得到半波天线的辐射场和方向因子，通过对比发现其辐射能力增加了许多。而单天线的辐射角分布没有达到我们需要的高度定向辐射的要求，于是天线阵应运而生。
+
+考虑到实际应用中需要高度定向的辐射，我们采用了天线阵的方式，通过一族电流源~(偶极子)排列，可以使其阵列因子的主瓣宽度趋近于0，即可获得很高的方向辐射。天线阵列角因子记为
+
+\begin{equation}
+F = \Bigg| \frac{\sin(\frac{N}{2}kl\cos \theta)}{\sin(\frac{1}{2}kl\cos \theta)} \Bigg|^2
+\end{equation}
+令$\psi = \frac{\pi}{2}-\theta$，则第一零点对应的主瓣半角宽度为
+\begin{equation}
+\psi = \sin^{-1} (\frac{\lambda}{Nl}) \simeq \frac{\lambda}{Nl}
+\end{equation}
+当$Nl\gg \lambda$时，便可以获得高度定向的辐射。
+此外，二维的天线阵可以获得$\theta$、$\phi$两个方向的定向，是目前所使用的主流辐射技术。
+
+
+\section{电磁波的传播}
+
+\subsection{大气中的传播}
+
+讨论过电磁波的辐射场后，我们在本节中讨论其传播过程。电磁波传播的基本环境是大气层，具体可以划分为对流层、平流层等等。由于不是真空，电磁波在大气中的传播会产生衰减~\supercite{chap3}。影响电磁波传播的主要因素有：
+\begin{itemize}
+\item[$\bullet$] 距离衰减（波束扩散）
+\item[$\bullet$] 大气吸收衰减
+\item[$\bullet$] 陆地/海洋边界
+\item[$\bullet$] 大气分层边界
+\item[$\bullet$] 地形和建筑物
+\end{itemize}
+\indent 而大气对微波的衰减程度和电磁波的频率也有关系，例如大气对频率$10GHz$以下的电磁波几乎不衰减。
+
+电磁波传播的主要途径有：
+\begin{itemize}
+\item[*] 天波传播：主要是利用电离层反射进行传播，波传播距离可超过1万千米。
+\item[*] 地波传播：沿陆地/海洋表面传播，距离几百千米至几千千米。
+\item[*] 视距传输：传播距离约为$r = \sqrt{2R} (\sqrt{H_1}+\sqrt{H_2})$，易受地面反射干扰。
+\item[*] 超视距传播：利用低层大气的分层特征通过反射和折射实现超视距传播。
+\end{itemize}
+
+值得注意的是，其传播受频率、距离、天线高度、极化、地形、天气、日照、建筑等影响~\supercite{chap3}，精确计算非常困难。基于大量测量结果和统计分析，许多传播模型被提出，电磁波的传播衰减等问题便得到了计算上的解决。总而言之，电磁波让我们彼此、我们与整个世界、我们与外太空都能紧密相连。
+
+\subsection{波导中的传播}
+
+波导是传输电磁波的常用结构。常用的金属波导有矩形波导或圆形波导，我们通过推导电磁波的传播方程，以及给定波导的边界条件来确定传播的电磁波种类，也即波模。在导波结构中，电磁波以各种离散的``导波模式''进行传播，每种模式的传输速度不同，能够传输的电磁波最低频率也不同。对实际应用来说，需要选取特定的模式作为``工作模式''。
+
+接下来我们探讨一下电磁波在波导中传播的一种应用。电磁波在波导中的传播是我们熟知的，而大气在某些情况下也可以等效为特定的波导~\supercite{spread}。通过确定大气波导特征参量，便可以解出电磁波在波导中的传输。大气波导可增加超短波的电场强度, 使超短波发生超长距离传播；同时，可增加雷达测距、测角、测速的误差, 并使雷达出现大面积探测盲区；另外, 大气波导对短波通信也会产生显著影响。由此，大气波导对军事作战尤其是对现代电子战系统的影响, 已显示出广阔的应用前景。
+
+
+\section{电磁波的散射}
+
+\subsection{电波散射概述}
+
+这一节中我们主要讨论电磁波的散射。
+电磁波在传播/传输过程中如果遇到阻碍，会发生反射、折射、绕射、衍射、透射等行为，把它们统称为``散射''~\supercite{chap4}。
+电磁散射研究是电波传播（如信道建模）、电磁探测和成像（如微波遥感、雷达目标探测）、微波与射频器件分析（如介质加载和多端口连接）等的重要基础。在生活中，一个常见的散射例子是光波的散射，而光波的散射也可以给予物体颜色，例如天空的天蓝、眼睛的虹膜、鸟的羽毛~\supercite{wiki}等等。
+
+\subsection{数值求解: 计算电磁学}
+
+电磁波在传输过程中如果遇到阻碍，则会发生散射现象。其物理意义较为直观，但是考虑到一旦发生散射，其求解就变得十分困难，仅给出边界条件不一定具有解析解~\supercite{chap4}。此处，我们着重讨论一下计算电磁学的数值求解~\supercite{calelec}。
+
+本质上来说，当问题没有解析解时，我们会想办法通过近似/多阶逼近的方法来获取其数值解。在《电动力学》课程上，我们接触过计算电磁学的最基本的方法---有限差分法。通过讨论有限差分法的计算过程，我们可以看到计算电磁学的基本思路所在。
+
+以直角坐标系的矩形区域为例，首先对于一个需要求解的区域，我们已知边界条件，第一步需要将区域进行网格化，得到差分方程。由于区域内任一点满足泊松/拉普拉斯方程，则对相邻四个点可以进行泰勒展开。略去高阶项并通过相应项的合并，带入矩形区域的边界条件，我们可以得到如下关系式（有源情况）
+\begin{equation}
+\varphi_O = \frac{1}{4} \big(\varphi_A + \varphi_B + \varphi_C + \varphi_D + l^2\frac{\rho(O)}{\varepsilon(O)} \big),
+\end{equation}
+其中$l$为划分的网格的长宽，可以任意小。这样我们就得到了中心网格点和相邻点的关系式。当带入边界条件并通过多次迭代，使得最终迭代结果趋于收敛，便得到了最终的数值解。
+
+通过上述过程我们可以直观看到，数值求解的过程就是一个迭代的过程。我们将问题缩小至小区域，来求解小区域的关系，并通过多次迭代使得最终趋向于收敛，得到的便是一个高精度的数值解。计算电磁学在目前的应用中十分广泛，除了有限差分法外，还有有限元法、矩量法、边界元法等许多其他的方法。通过计算机的辅助，使得难以求解的问题能够在多项式时间内解决，而计算电磁学也已逐渐取代经典电磁学，成为现代电磁理论研究的主流。
+
+
+
+\section{总结}
+
+本文对电磁波的辐射、传播、散射进行了详细的讨论，并对相关的应用进行了阐述。文章从电磁波的辐射场开始，对电磁波的形成、发射、传播过程做了综述。基于《电磁波理论与应用导论》课程第一部分内容，
+笔者在写作和梳理过程中，对电磁波有了更深层次的认识，对目前的新兴技术也有了大体的把握。
+
+最后，由于报告中需要加入部分数学表达式，本文档使用了$LaTeX$来编写报告，以获得更优的排版效果
+\footnote{由于另一篇文章《学习心得与体会》我写的较为全面，涵盖了这部分的内容，所以两篇文章会有部分内容是一样的，但均为自己构思、写出的，可视作对前部分内容的加深、拓展。}。
+
+
+% =====================================================Reference
+\small
+\begin{thebibliography}{99}
+\setlength{\parskip}{0pt}  %段落之间的竖直距离
+
+\bibitem{wiki}
+https://zh.wikipedia.org/wiki.
+
+\bibitem{Elecbook}
+郭硕鸿. 电动力学~(第三版), 高等教育出版社, 2008.6.
+
+\bibitem{newton}
+Newton. 自然哲学的数学原理. \emph{Philosophiæ Naturalis Principia Mathematica}. Jul. 1686.
+
+\bibitem{chap1}
+夏明耀. 电磁波理论与应用导论, 第一讲：电磁波理论基础. 2017.2.
+
+\bibitem{chap2}
+夏明耀. 电磁波理论与应用导论, 第二讲：电磁频谱管理与应用. 2017.2.
+
+\bibitem{chap3}
+夏明耀. 电磁波理论与应用导论, 第三讲：电磁波的发射与传播. 2017.3.
+
+\bibitem{spread}
+姚展予. 大气波导特征分析及其对电磁波传播的影响, \emph{ACT A M ET EOROLOGICA SINICA}.
+Vol. 58, No. 5. Oct, 2000.
+
+\bibitem{chap4}
+夏明耀. 电磁波理论与应用导论, 第四讲：电磁波与媒质和物体的作用. 2017.3.
+
+\bibitem{chap5}
+夏明耀. 电磁波理论与应用导论, 第五讲：电磁波作为信息载体—信号调制. 2017.3.
+
+\bibitem{calelec}
+吕英华. 计算电磁学的数值方法. 2006.
+
+
+\end{thebibliography}
+
+
+% ===================================================Annotations
+\iffalse
+\normalsize
+\parpic{%
+\includegraphics[width=3.0cm]%
+{Hou.jpg}}
+\indent Yuzhe, ...
+\fi
+
+
+\end{multicols}
+
+
+\clearpage
+\end{document}
