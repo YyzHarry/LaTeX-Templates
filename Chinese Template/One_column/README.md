@@ -9,4 +9,3 @@ I put all files here, because I'm lazy to delete other unimportant files...
 
 ## Usage
 Compile the __.tex__ file to establish a PDF file. You need to compile it with ___XeLaTex___.
-
