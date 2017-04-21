@@ -10,10 +10,10 @@ This file is a project report of __Digital Signal Processing__ course.
 
 因为某些原因~我比较懒~，所以把全部文件进行了上传而没有删减，需者自取。
 
-另外，本代码实现了___Matlab___代码的插入功能，具体见注释部分操作。
+另外，本代码实现了 ___Matlab___ 代码的插入功能，具体见注释部分操作。
 
 ## Usage
 Compile the __.tex__ file to establish a PDF file. You need to compile it with ___XeLaTeX___.
 
 ## 使用方法
-中文编译请使用___XeLaTeX___。
+中文编译请使用 ___XeLaTeX___。
