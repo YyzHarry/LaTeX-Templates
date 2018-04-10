@@ -1,10 +1,11 @@
-# LaTex Templates
+# LaTeX Templates
 
 ## Introduction
-This is a LaTex Templates for several uses.
+Several useful LaTeX templates.
 
 1. Demo files for IEEE conferences.
 2. Chinese templates with both one and two columns.
+3. (Updates) Personal CV, for professional usage.
 
 ## Usage
 Compile the __.tex__ file to establish a PDF file.
