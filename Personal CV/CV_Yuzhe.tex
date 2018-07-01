@@ -1,0 +1,441 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of ??                                  %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %%
+%% LaTeX to get the ``??'' replaced with the number of the last page  %%
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Try 10pt, 11pt or 12pt
+\documentclass[11pt]{article}
+
+% The automated optical recognition software used to digitize resume
+% information works best with fonts that do not have serifs. This
+% command uses a sans serif font throughout. Uncomment both lines (or at
+% least the second) to restore a Roman font (i.e., a font with serifs).
+%\usepackage{times}
+%\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{url}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+\usepackage{comment}
+
+% Simpler bibsection for CV sections
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{1em}
+\newlength{\bibsep}{\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+
+\newenvironment{bibsection}
+    {\begin{enumerate}{}{
+        \setlength{\leftmargin}{\bibhang}
+        \setlength{\itemindent}{-\leftmargin}
+        \setlength{\itemsep}{\bibsep}
+        \setlength{\parsep}{\z@}
+        \setlength{\partopsep}{0pt}
+        \setlength{\topsep}{0pt}}}
+    {\end{enumerate}\vspace{-.6\baselineskip}}
+\makeatother
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+
+% Paper Size, Page Number, Layouts
+\iffalse
+% Use these lines for letter-sized paper
+\usepackage[paper=letterpaper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=1.2in,     % Length of section titles
+            marginparsep=.05in,       % Space between titles and text
+            margin=1in,               % 1 inch margins
+            includemp]{geometry}
+\fi
+% Use these lines for A4-sized paper
+\usepackage[paper=a4paper,
+            includefoot,            % Uncomment to put page number above margin
+            marginparwidth=35mm,    % Length of section titles
+            marginparsep=0mm,       % Space between titles and text
+            margin=15mm,            % 15mm margins
+            includemp]{geometry}
+
+% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+\usepackage[shortlabels]{enumitem}
+
+
+% Reference the last page in the page number
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}
+       \parbox{4in}{\, \hfill
+                    %\arabic{page} of \protect\pageref*{LastPage} % +LP
+                    \arabic{page}                                 % -LP
+                    \hfill \,}}
+
+% PDF Bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The title (name) with a horizontal rule under it
+% (optional argument typesets an object right-justified across from name
+%  as well)
+%
+% Usage: \makeheading{name}
+%        OR
+%        \makeheading[right_object]{name}
+%
+% Place at top of document. It should be the first thing.
+% If ``right_object'' is provided in the square-braced optional
+% argument, it will be right justified on the same line as ``name'' at
+% the top of the CV. For example:
+%
+%       \makeheading[\emph{Curriculum vitae}]{Your Name}
+%
+% will put an emphasized ``Curriculum vitae'' at the top of the document
+% as a title. Likewise, a picture could be included:
+%
+%   \makeheading[\includegraphics[height=1.5in]{my_picutre}]{Your Name}
+%
+% the picture will be flush right across from the name.
+\newcommand{\makeheading}[2][]%
+    {\hspace*{-\marginparsep minus \marginparwidth}%
+        \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+            {\LARGE \scshape #2 \hfill #1}\\[-0.15\baselineskip]%
+                    \rule{\columnwidth}{1pt}%
+        \end{minipage}}
+
+
+% The section headings
+% Usage: \section{section name}
+\renewcommand{\section}[1]{\pagebreak[3]%
+    \hyphenpenalty=10000%
+    \vspace{1.5\baselineskip}%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
+    \noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\raggedright #1}}}%
+    \vspace{-\baselineskip}\par}
+
+% An itemize-style list with lots of space between items
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1,leftmargin=*]}{\end{itemize}%
+         \vspace{-.6\baselineskip}}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+\newenvironment{lonelist}[1][\enskip\textbullet]%
+        {\begin{list}{#1}{%
+        \setlength{\partopsep}{0pt}%
+        \setlength{\topsep}{0pt}}}
+        {\end{list}\vspace{-.6\baselineskip}}
+
+% An itemize-style list with little space between items
+\newenvironment{innerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt]}
+        {\end{itemize}}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+\newenvironment{loneinnerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt]}
+        {\end{itemize}\vspace{-.6\baselineskip}}
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[3]}
+\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
+
+% Uses hyperref to link DOI
+\newcommand\doilink[1]{\href{http://dx.doi.org/#1}{#1}}
+\newcommand\doi[1]{doi:\doilink{#1}}
+
+% For \url{SOME_URL}, links SOME_URL to the url SOME_URL
+%\providecommand*\url[1]{\href{#1}{#1}}
+% Same as above, but pretty-prints SOME_URL in teletype fixed-width font
+%\renewcommand*\url[1]{\href{#1}{\texttt{#1}}}
+
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+\providecommand*\email[1]{\href{mailto:#1}{#1}}
+% Same as above, but pretty-prints ADDRESS in teletype fixed-width font
+%\renewcommand*\email[1]{\href{mailto:#1}{\texttt{#1}}}
+
+%\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+%\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%    \TeX}}
+\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    \TeX}}
+\providecommand\Matlab{\textsc{Matlab}}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\makeheading{Yuzhe Yang}
+
+
+\section{Contact Information}
+\newlength{\rcollength}\setlength{\rcollength}{2.35in}   % Adjust: Width of the right column
+
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength}p{\rcollength}}
+2333N, Science Building II & \emph{Phone:} (+86) 1880-108-7681 \\
+\href{http://www.pku.edu.cn/}{Peking University} & \emph{Email:} \email{yuzhe.yang@pku.edu.cn} \\
+Beijing, 100084, P. R. China & \texttt{\url{http://www.mit.edu/~yuzhe/}} \\
+\end{tabular}
+
+
+\section{Education}
+\href{http://web.mit.edu/}{\textbf{Massachusetts Institute of Technology (MIT)}} \hfill Cambridge, MA
+
+\vspace{-.1in}
+\begin{outerlist}
+\item[] \textbf{Ph.D.}, Electrical Engineering and Computer Science \hfill {Sept. 2018 - Present} %\emph{Expected:} Summer 2024
+        \begin{innerlist}
+        % \item Thesis Topic: \emph{Spatiotemporal Gradient Modeling with Applications}
+        \item Advisor:
+              \href{http://people.csail.mit.edu/dina/}
+                   {Prof. Dina Katabi}
+        \end{innerlist}
+\end{outerlist}
+
+\vspace{.15in}
+
+\href{http://www.pku.edu.cn/}{\textbf{Peking University}} \hfill Beijing, China
+
+\vspace{-.1in}
+\begin{outerlist}
+\item[] \textbf{B.S.}, Electrical Engineering and Computer Science \hfill {Sept. 2014 - Jul. 2018} %\slshape
+        \begin{innerlist}
+            \item GPA: 3.70/4 \ \quad Major GPA: 3.85/4 \ \quad Rank: Top 7\%
+            \item Core Courses: Probability Theory and Statistics; Signals and Systems; Pattern Recognition; Deep Learning Specialization; Information and Coding Theory; Computer Networks (Honor Track); Data Structure and Algorithm; Principle of Microcomputer; Principle of Telecommunication; Digital Signal Processing. % Methods of Mathematical Physics; Principle of Circuit Analysis
+        \end{innerlist}
+\end{outerlist}
+
+\iffalse
+\item[] M.S.,
+        \href{http://www.sph.umn.edu/biostatistics/}
+             {Biostatistics},
+             Aug 2010
+        \begin{innerlist}
+        \item Topic: \emph{Assessing the Impact of the Density of Alcohol Establishments on Crime in Minneapolis Neighborhoods Using Univariate and Multivariate Conditionally Autoregressive Models}
+        \item Advisor:
+              \href{http://www.biostat.umn.edu/~brad/}
+                   {Bradley P. Carlin, Ph.D}
+        \end{innerlist}
+\fi
+
+
+\section{Research Highlights}
+\textbf{Research Assistant} \hfill {Sept. 2018 - Present}
+\begin{innerlist}
+
+\item[] Department of Electrical Engineering and Computer Science,\\
+        Massachusetts Institute of Technology~(MIT)\\
+        Advisor: Prof. Dina Katabi
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Research Assistant} \hfill {Mar. 2016 - Jul. 2018}
+\begin{innerlist}
+
+\item[] Department of Electrical Engineering and Computer Science,\\
+        Peking University\\
+        Advisors: Prof. Lingyang Song and Prof. Kaigui Bian
+\end{innerlist}
+
+
+\section{Refereed Publications}
+\textbf{Journal Publications}
+\vspace{-.03in}
+\begin{enumerate}
+    \item {\bf Y. Yang}, Z. Zheng, K. Bian, L. Song, and Z. Han, ``Real-Time Profiling of Fine-Grained Air Quality Index Distribution using UAV Sensing.'' {\em \textbf{IEEE Internet of Things Journal}}, vol. 5, no. 1, pp. 186-198, Feb. 2018.
+\end{enumerate}
+
+\halfblankline
+
+\textbf{Conference Publications}
+\vspace{-.03in}
+\begin{enumerate}
+    \item {\bf Y. Yang}, Z. Bai, Z. Hu, Z. Zheng, K. Bian, and L. Song, ``Demo: AQNet: Fine-Grained 3D Spatio-Temporal Air Quality Monitoring by Aerial-Ground WSN.'' {\em IEEE International Conference on Computer Communications (\textbf{INFOCOM})}, Honolulu, HI, Apr. 2018.
+    \item {\bf Y. Yang}, Z. Zheng, K. Bian, L. Song, and Z. Han, ``Sensor Deployment Recom-mendation for 3D Fine-Grained Air Quality Monitoring using Semi-Supervised Learning.'' {\em IEEE International Conference on Communications (\textbf{ICC})}, Kansas City, MO, May 2018.
+    \item {\bf Y. Yang}, Z. Zheng, K. Bian, L. Song, and Z. Han, ``Arms: A Fine-grained 3D AQI Realtime Monitoring System by UAV.'' {\em IEEE Global Communications Conference (\textbf{GlobeCom})}, Singapore, Dec. 2017.
+\end{enumerate}
+
+\iffalse
+\begin{bibsection}
+    \item {\bf Yuzhe Yang}, Zixuan Bai, Zhiwen Hu, Zijie Zheng, Kaigui Bian, and Lingyang Song, ``Demo: AQNet: Fine-Grained 3D Spatio-Temporal Air Quality Monitoring by Aerial-Ground WSN.'' {\em IEEE International Conference on Computer Communications~(\textbf{INFOCOM'18})}, Honolulu, HI, Apr. 2018.
+    \item {\bf Yuzhe Yang}, Zijie Zheng, Kaigui Bian, Lingyang Song, and Zhu Han, ``Sensor Deployment Recommendation for 3D Fine-Grained Air Quality Monitoring using Semi-Supervised Learning.'' {\em IEEE International Conference on Communications~(\textbf{ICC'18})}, Kansas City, MO, May 2018.
+    \item {\bf Yuzhe Yang}, Zijie Zheng, Kaigui Bian, Yun Jiang, Lingyang Song, and Zhu Han, ``Arms: A Fine-grained 3D AQI Realtime Monitoring System by UAV.'' {\em IEEE Global Communications Conference~(\textbf{GlobeCom'17})}, Singapore, Dec. 2017.
+\end{bibsection}
+\fi
+
+
+\iffalse
+\section{Preprints}
+\vspace{-.125in}
+\begin{bibsection}
+    \item Toomey, T.L., Erickson, D.J., Carlin, B.P., Lenk, K.M., {\bf Quick, H.S.}, and Harwood, E.M. ``Do neighborhood attributes moderate the relationship between alcohol establishment density and crime?" 2012. Submitted to \emph{Prevention Science}.
+\end{bibsection}
+\fi
+% Add a little space to nudge next ``Conference Publications'' marginpar
+% down to make room for tall ``Submitted Journal Publications''
+% marginpar. If there are enough submitted journal publications, this
+% space will not be needed (and should be removed).
+%\vspace{0.1in}
+
+
+\section{Research Projects}
+
+
+
+\section{Honors and Awards}
+Travel Awards
+\begin{innerlist}
+\item Workshop on Environmetrics, Raleigh, NC\hfill Oct 2012
+\item Case Studies in Bayesian Statistics and\hfill Oct 2011\\
+Machine Learning, Pittsburgh, PA
+\item IMS/ISBA Joint International Meeting, Park City, UT\hfill Jan 2011
+\end{innerlist}
+
+\halfblankline
+
+Student Awards --- University of Minnesota, Division of Biostatistics
+\begin{innerlist}
+\item Outstanding Teaching Assistant Award\hfill May 2012
+\item Outstanding Research Assistant Award\hfill May 2011
+\item James R. Boen Student Achievement Award\hfill May 2009
+\end{innerlist}
+
+\halfblankline
+
+Student Awards --- University of Minnesota, Graduate School
+\begin{innerlist}
+\item Doctoral Dissertation Fellowship\hfill 2012--2013
+\begin{innerlist}
+    \item The Doctoral Dissertation Fellowship (DDF) program is intended to give the most accomplished final-year PhD candidates an opportunity to complete the dissertation within the 2012--13 academic year by devoting full-time effort to research and writing.
+\end{innerlist}
+\end{innerlist}
+
+
+\iffalse
+\section{Selected Talks \& Presentations}
+Statistical Meetings
+\begin{innerlist}
+\item Workshop on Environmetrics, Raleigh, NC \hfill Oct 2012
+\item Joint Statistical Meetings, San Diego, CA \hfill Aug 2012
+\item Biometric Society (ENAR) Regional Meeting, Washington, D.C. \hfill Apr 2012
+\item Case Studies in Bayesian Statistics and\hfill Oct 2011\\
+Machine Learning, Pittsburgh, PA
+\item Biometric Society (ENAR) Regional Meeting, Miami, FL \hfill Mar 2011
+\item IMS/ISBA Joint International Meeting, Park City, UT \hfill Jan 2011
+\end{innerlist}
+
+\halfblankline
+
+University of Minnesota
+\begin{innerlist}
+\item Mostly Markov Chain Seminar Series \hfill Nov 2011
+\item School of Public Health Research Day \hfill Apr 2011
+\end{innerlist}
+\fi
+
+\iffalse
+\section{Teaching Experience}
+%\textbf{Teaching Assistant} \hfill {Springs 2011--12}
+Co-instructor \hfill {Summer 2013}
+\begin{innerlist}
+\item[] PUBH 6400 - Topics in Hierarchical Bayesian Analysis\\
+        with Bradley P. Carlin\\
+        Division of Biostatistics,\\
+        University of Minnesota
+\end{innerlist}
+
+Teaching Assistant \hfill {Springs 2011--12}
+\begin{innerlist}
+
+\item[] PUBH 7440 - Introduction to Bayesian Analysis\\
+        Instructor: Bradley P. Carlin, Ph.D\\
+        Division of Biostatistics,\\
+        University of Minnesota
+\end{innerlist}
+\fi
+
+
+\section{Professional Services}
+\textbf{Journal Reviewer}
+\begin{innerlist}
+    \item IEEE China Communications
+\end{innerlist}
+%\halfblankline
+
+
+\section{Skills}
+\textbf{Programming}
+\begin{innerlist}
+    \item C, C++, Python, \Matlab, VHDL, Assembly, HTML/CSS, JavaScript, Node.js, MySQL
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Platforms and Tools}
+\begin{innerlist}
+    \item Tensorflow, Keras, Linux, Git, Cadence, \LaTeX
+\end{innerlist}
+
+
+\iffalse
+\section{References}
+Bradley P.\ Carlin
+\begin{innerlist}
+\item[] Mayo Professor in Public Health, Division Head \hfill {Phone: 612-624-6646}\\
+Division of Biostatistics \hfill{E-mail: carli002@umn.edu}\\
+University of Minnesota
+\end{innerlist}
+
+\halfblankline
+
+Sudipto Banerjee
+\begin{innerlist}
+\item[] Professor \hfill {Phone: 612-624-0624}\\
+Division of Biostatistics \hfill{E-mail: baner009@umn.edu}\\
+University of Minnesota
+\end{innerlist}
+
+\halfblankline
+
+Traci Toomey
+\begin{innerlist}
+\item[] Professor \hfill {Phone: 612-626-9070}\\
+Division of Epidemiology \hfill{E-mail: toome001@umn.edu}\\
+University of Minnesota
+\end{innerlist}
+\fi
+
+\end{document}
